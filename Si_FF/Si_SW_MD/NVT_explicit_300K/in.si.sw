@@ -31,7 +31,7 @@ dump_modify     1 format line "%d %d %5.10f %5.10f %5.10f %5.10f %5.10f %5.10f %
 timestep        1e-3
 
 #initial mixing
-fix             4 all temp/rescale 100 300 300 10 0.5
+fix             4 all temp/rescale 1 300 300 15 0.5
 fix		5 all nve
 run             50000
 undump          1
