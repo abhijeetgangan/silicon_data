@@ -31,12 +31,10 @@ dump_modify     1 format line "%d %d %5.10f %5.10f %5.10f %5.10f %5.10f %5.10f %
 timestep        1e-3
 
 #initial mixing
-fix             4 all temp/csvr 300 300 0.1 121
-fix		5 all nve 
-run             200000
+fix		3 all nvk
+run             50000
 undump          1
-unfix           4
-unfix		5
+unfix		3
 
 write_data S300K.dat
 write_restart S300K.rest

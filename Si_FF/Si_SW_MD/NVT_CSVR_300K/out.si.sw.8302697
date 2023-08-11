@@ -1,47 +1,11 @@
 LAMMPS (23 Jun 2022 - Update 2)
-# SW potential for Silicon
-
-units		metal
-dimension       3
-processors      * * *
-boundary	p p p
-
-#read data
-atom_style      atomic
-
-# read restart
-#read_restart    S300K.rest
-
-#read data
-read_data       Si_512.dat
 Reading data file ...
   triclinic box = (0 0 0) to (21.724 21.724 21.724) with tilt (0 0 0)
   1 by 1 by 1 MPI processor grid
   reading atoms ...
   512 atoms
   read_data CPU = 0.009 seconds
-
-#potential
-pair_style      sw
-pair_coeff      * * Si.sw Si
 Reading sw potential file Si.sw with DATE: 2007-06-11
-
-neighbor        2.0 bin
-neigh_modify    every 1 delay 0 check yes
-
-#outputs
-velocity all create 300.0 121 mom yes dist gaussian
-thermo		100
-thermo_style	custom time temp press vol pe econserve
-dump            1 all custom 100 md.lammpstrj id type xs ys zs vx vy vz fx fy fz
-dump_modify     1 format line "%d %d %5.10f %5.10f %5.10f %5.10f %5.10f %5.10f %5.10f %5.10f %5.10f" pbc yes sort id
-
-timestep        1e-3
-
-#initial mixing
-fix             4 all temp/csvr 300 300 0.1 121
-fix		5 all nve
-run             200000
 Neighbor list info ...
   update every 1 steps, delay 0 steps, check yes
   max neighbors/atom: 2000, page size: 100000
@@ -54,6 +18,10 @@ Neighbor list info ...
       pair build: full/bin/atomonly
       stencil: full/bin/3d
       bin: standard
+Setting up Verlet run ...
+  Unit style    : metal
+  Current step  : 0
+  Time step     : 0.001
 Per MPI rank memory allocation (min/avg/max) = 5.273 | 5.273 | 5.273 Mbytes
      Time           Temp          Press          Volume         PotEng       Econserve   
  0              300            2036.3253      10252.255     -2220.2982     -2200.4827    
@@ -2085,12 +2053,6 @@ Total # of neighbors = 17408
 Ave neighs/atom = 34
 Neighbor list builds = 0
 Dangerous builds = 0
-undump          1
-unfix           4
-unfix		5
-
-write_data S300K.dat
 System init for write_data ...
-write_restart S300K.rest
 System init for write_restart ...
 Total wall time: 0:05:53
