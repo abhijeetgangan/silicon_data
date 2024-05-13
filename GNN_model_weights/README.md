@@ -1,1 +1,1 @@
-GNN model weights
+# GNN model weights
